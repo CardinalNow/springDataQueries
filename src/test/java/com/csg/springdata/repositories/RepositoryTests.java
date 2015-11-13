@@ -2,6 +2,7 @@ package com.csg.springdata.repositories;
 
 import com.csg.springdata.SpringDataApplication;
 import com.csg.springdata.model.Customer;
+import com.csg.springdata.model.Item;
 import com.csg.springdata.model.Order;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,6 +38,12 @@ public class RepositoryTests {
         List<Customer> collection = new ArrayList<>();
         customers.forEach(collection::add);
         assertEquals(12, collection.size());
+    }
+
+    @Test
+    public void testFindByFirstName() {
+        List<Customer> customers = customerRepository.findByFirstName("Homer");
+        assertEquals(1, customers.size());
     }
 
     @Test
@@ -86,4 +93,10 @@ public class RepositoryTests {
         assertEquals(6, orders.size());
     }
 
+    @Test
+    public void testFindItemsWithNameLike() {
+        List<Item> items = itemRepository.findByNameLike("%Glasses%");
+        assertNotNull(items);
+        assertEquals(2, items.size());
+    }
 }
